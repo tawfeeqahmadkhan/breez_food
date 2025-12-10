@@ -65,10 +65,9 @@ export default function RestaurantMenu() {
     setIsModalOpen(true);
   };
 
-  const addTo = (product, quantity) => {
-    console.log(`Added ${quantity} of ${product.name} to `);
-    set([..., { ...product, qty: quantity }]);
-
+  const addToCart = (product, quantity) => {
+    console.log(`Added ${quantity} of ${product.name} to cart`);
+    setCart([...cart, { ...product, qty: quantity }]);
   };
 
   const formatPrice = (price) => {
@@ -108,7 +107,6 @@ export default function RestaurantMenu() {
         />
       </div>
 
-
       {/* Restaurant Header Info */}
       <RestaurantInfo data={data} />
 
@@ -131,7 +129,6 @@ export default function RestaurantMenu() {
                 category.products.map((product) => {
                   const discountPercent = calculateDiscount(product.regular_price, product.discounted_price);
                   const hasDiscount = discountPercent > 0;
-
                   return (
                     <div
                       key={product.id}

@@ -6,7 +6,7 @@ export default function Navbar({menus, selectedManu, setSelectedMenu, setSelecte
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  // Initial setup
+
   useEffect(() => {
     if(menus && menus.length > 0 && !selectedManu) {
         setSelectedMenu(menus[0]?.id);
@@ -14,11 +14,10 @@ export default function Navbar({menus, selectedManu, setSelectedMenu, setSelecte
     }
   }, [menus]);
 
-  // Handle Main Menu Change (e.g., Food vs Drinks)
   const handleSelectMenu = (id) => {
     setSelectedMenu(id);
     let findmenu = menus?.find((i)=>i.id == id);
-    // Scroll to top when changing menu
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if(findmenu?.categories?.length > 0) {
         setSelectedCategory(findmenu.categories[0].id);
@@ -26,15 +25,9 @@ export default function Navbar({menus, selectedManu, setSelectedMenu, setSelecte
     setIsOpen(false);
   };
 
-  // Handle Category Click (Scroll to section)
   const handleCategoryClick = (categoryId) => {
-      // 1. Manually set selected state (for instant visual feedback)
       setSelectedCategory(categoryId);
-      
-      // 2. Find the element
       const section = document.getElementById(`category-${categoryId}`);
-      
-      // 3. Scroll to it
       if (section) {
           section.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -44,7 +37,7 @@ export default function Navbar({menus, selectedManu, setSelectedMenu, setSelecte
     <div className="w-full flex justify-center py-4 sm:py-6 px-2 sm:px-4 font-sans transition-all duration-300" dir="rtl">
       <div className="relative w-full">
         
-        {/* Menu Dropdown Selector */}
+      
         <div className="absolute -top-5 right-6 sm:right-12 z-20 flex flex-row gap-2">
             <div className="relative w-['8rem']" dir="ltr">
                 <button
@@ -79,7 +72,7 @@ export default function Navbar({menus, selectedManu, setSelectedMenu, setSelecte
                         onClick={() => handleSelectMenu(menu.id)}
                         className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-[#8a611a] transition-colors border-b last:border-none border-[#8a611a]"
                         >
-                        {/* Safe image handling */}
+                     
                         {menu?.image && (
                             <img 
                                 src={menu.image.replace('http://localhost:4000/','https://api.breez.food/public/')} 
@@ -95,8 +88,13 @@ export default function Navbar({menus, selectedManu, setSelectedMenu, setSelecte
             </div>
         </div>
 
-        {/* Category Horizontal Scroll (Chips) */}
-        <div className={`relative bg-[#C59D5F] h-16 sm:h-20 rounded-full w-full shadow-xl flex items-center px-2 sm:px-6 overflow-x-auto whitespace-nowrap no-scrollbar`}>
+       
+        <div className={`relative bg-[#C59D5F] h-16 sm:h-20 rounded-full w-full shadow-xl flex items-center px-2 sm:px-6 overflow-x-auto whitespace-nowrap no-scrollbar`}
+        style={{ 
+    scrollbarWidth: 'none',  
+    msOverflowStyle: 'none'
+  }}
+>
           <div className="flex items-center gap-2 w-full justify-start pr-2">
             
 
@@ -104,7 +102,7 @@ export default function Navbar({menus, selectedManu, setSelectedMenu, setSelecte
               <button 
                 key={ctg.id}
                 className={`text-white border border-transparent hover:bg-black/10 ${selectedCategory == ctg.id ? 'bg-[#9A6F20] shadow-md border-[#8a611a] scale-105':''} rounded-full px-4 py-2 flex items-center gap-2 transition-all flex-shrink-0 cursor-pointer`}
-                onClick={() => handleCategoryClick(ctg.id)} // Uses new scroll handler
+                onClick={() => handleCategoryClick(ctg.id)} 
               >
                 {ctg?.image && (
                     <img

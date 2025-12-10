@@ -65,8 +65,7 @@ export default function RestaurantInfo({ data }) {
                         </div>
                     </div>
                </div>
-               
-              
+
                <div className="flex items-center gap-2">
                    {Object.entries(socials || {}).map(([platform, link]) => (
                        link && link !== '#' && (
