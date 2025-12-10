@@ -65,9 +65,9 @@ export default function RestaurantMenu() {
     setIsModalOpen(true);
   };
 
-  const addToCart = (product, quantity) => {
-    console.log(`Added ${quantity} of ${product.name} to cart`);
-    setCart([...cart, { ...product, qty: quantity }]);
+  const addTo = (product, quantity) => {
+    console.log(`Added ${quantity} of ${product.name} to `);
+    set([..., { ...product, qty: quantity }]);
 
   };
 
@@ -107,9 +107,7 @@ export default function RestaurantMenu() {
           setSelectedMenu={setSelectedMenu}
         />
       </div>
-      <div className='sticky left-0 top-80 w-full z-[999]'>
-        cart
-      </div>
+
 
       {/* Restaurant Header Info */}
       <RestaurantInfo data={data} />
