@@ -2,9 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr'; 
+import Navbar from '../components/Navber';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 export default function RestaurantMenu() {
+  const [selectedCategory,setSelectedCategory]  =useState('');
+  const [selectedMenu,setSelectedMenu]  =useState('');
 const { data, error, isLoading:loading } = useSWR('/api', fetcher);
 
   const formatPrice = (price) => {
@@ -37,8 +40,7 @@ const { data, error, isLoading:loading } = useSWR('/api', fetcher);
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12 font-sans" dir="rtl">
-      
-      
+      <Navbar menus={data?.menus || []} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} selectedManu={selectedMenu} setSelectedMenu={setSelectedMenu}/>
       <div className="bg-white shadow-sm pb-6 pt-4 rounded-b-[2.5rem] mb-8">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
